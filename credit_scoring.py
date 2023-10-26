@@ -17,7 +17,7 @@ from sklearn.metrics import roc_curve, auc
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.feature_selection import SequentialFeatureSelector
-
+import statsmodels.api as sm
 
 
 
@@ -358,7 +358,7 @@ Avant de passer aux arbres de decision, aux méthodes d'aggregation et aux autre
     # Convertir les variables catégorielles en variables indicatrices (dummies)
     X = pd.get_dummies(X, columns=X.columns, drop_first=True)
 
-    import statsmodels.api as sm
+
     # Ajouter une constante pour l'interception
     X = sm.add_constant(X)
     
