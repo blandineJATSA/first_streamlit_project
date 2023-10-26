@@ -7,16 +7,16 @@ import seaborn as sns
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-import matplotlib.pyplot as plt
 import plotly.express as px
-import seaborn as sns
 import streamlit.components.v1 as components
 from scipy.stats import kruskal
-from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, roc_auc_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import roc_curve, auc
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.feature_selection import SequentialFeatureSelector
 
 
 
@@ -369,14 +369,6 @@ Avant de passer aux arbres de decision, aux méthodes d'aggregation et aux autre
     le = LabelEncoder()
     y_train_encoded = le.fit_transform(y_train)
     y_test_encoded = le.fit_transform(y_test)
-    
-    
-    #from mlxtend.feature_selection import SequentialFeatureSelector
-    from sklearn.feature_selection import SequentialFeatureSelector
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.metrics import roc_auc_score
-    from sklearn.pipeline import make_pipeline
-    from sklearn.preprocessing import StandardScaler
 
     # Créez un objet de modèle de régression logistique
     lr = LogisticRegression()
