@@ -44,6 +44,6 @@ if selected_option == "Concevoir notre A/B testing":
 
     st.markdown("$$H_0 : P=P_0 $$")
     st.markdown("$$H_a : P \\neq P_0$$")
-    st.write(" où où $P$ et $P_0$ représentent respectivement le taux de conversion du nouveau et de l'ancien design. "
-             "Nous fixerons également un niveau de confiance de 95 %  soit $\Alpha = 0,05$")
+    st.write(" où $P$ et $P_0$ représentent respectivement le taux de conversion du nouveau et de l'ancien design. "
+             "Nous fixerons également un niveau de confiance de 95 %  soit $\alpha = 0,05$")
 
