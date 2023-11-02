@@ -39,4 +39,7 @@ if selected_option == "Concevoir notre A/B testing":
              )
 
     st.markdown("- **Hypothèses du test**")
-    st.write(" ")
+    st.write("Etant donné que nous ne savons pas si notre nouveau design influence mieux ou moins le taux de conversion"
+             "par rapport à l'ancien, nous choisissons un test bilatéral:")
+
+    st.markdown("$$H_0 : P=P_0 \\ H_a : P!=P_0$$")
