@@ -13,6 +13,24 @@ st.title('Projet AB testing')
 st.subheader ( 'Par Blandine JATSA NGUETSE')
 
 
+# Some plot styling preferences
+plt.style.use('seaborn-whitegrid')
+font = {'family' : 'Helvetica',
+        'weight' : 'bold',
+        'size'   : 14}
+
+mpl.rc('font', **font)
+effect_size = sms.proportion_effectsize(0.13, 0.15)    # Calculating effect size based on our expected rates
+
+required_n = sms.NormalIndPower().solve_power(
+    effect_size,
+    power=0.8,
+    alpha=0.05,
+    ratio=1
+    )               # Calculating sample size needed
+
+required_n = ceil(required_n)    # Rounding up to next whole number
+
 
 # Menu de navigation
 st.sidebar.title("Menu de Navigation")
@@ -67,4 +85,4 @@ if selected_option == "Concevoir notre A/B testing":
                 "Puisque notre équipe se contenterait d’une différence de 2 %, nous pouvons utiliser 13 % et 15 % pour "
                 "calculer la taille de l’effet attendue.")
 
-
+    st.write(" Nous aurions besoin d'au moins ", required_n, "observations pour chaque groupe:")
