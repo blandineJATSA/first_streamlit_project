@@ -19,7 +19,7 @@ if selected_option == "Concevoir notre A/B testing":
     st.write("Ce projet explique comment concevoir, exécuter et interpréter un A/B test en vue d'améliorer les taux "
              "de conversion d'une page de site Web. Cette méthode est applicable à tout type d'activités marketing.")
 
-    st.write("- Mise en situation et objectifs")
+    st.markdown("- **Mise en situation et objectifs**")
     st.write(" En tant que data scientist, nous sommes solliciter par l'équipe produit. Le concepteur de cette équipe a "
              "travaillé très dur sur une nouvelle version de la page produit, dans l'espoir qu'elle entraînera un taux "
              "de conversion "
