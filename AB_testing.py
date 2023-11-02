@@ -92,11 +92,30 @@ elif selected_option == "Collecte et préparation des données":
         # Affichez la dimension de la base de données
         num_rows, num_columns = AB_test.shape
         st.write(f"La base de données a {num_rows} lignes et {num_columns} colonnes.")
-        st. write(AB_test.info())
+        st. write(AB_test.infos())
+        st.write("Nous n'utiliserons en fait que les colonnes **group** et **converted** pour l'analyse.")
+        st.write("Tableau croisé entre 'group' et 'landing_page' :")
         st.write(pd.crosstab(AB_test['group'], AB_test['landing_page']))
 
     preparation_données = st.checkbox(" Préparation des données ")
-    if preparation_données :
-        st.write("Nous n'utiliserons en fait que les colonnes **group** et **converted** pour l'analyse.")
+    if preparation_données:
+        session_counts = AB_test['user_id'].value_counts(ascending=False)
+        multi_users = session_counts[session_counts > 1].count()
+
+        st.write(f"Il y a {multi_users} utilisateurs qui apparaissent plusieurs fois dans l'ensemble de données")
+        users_to_drop = session_counts[session_counts > 1].index
+
+        df = AB_test[~AB_test['user_id'].isin(users_to_drop)]
+        st.write("L'ensemble de données mis à jour contient désormais",  df.shape[0], "entrées")
+
+        st.write("  **Échantillonnage**")
+        st.write("Nous effectuons un échantillonnage aléatoire simple ")
+        control_sample = df[df['group'] == 'control'].sample(n=required_n, random_state=22)
+        traitement_sample = df[df['group'] == 'treatment'].sample(n=required_n, random_state=22)
+
+        ab_test = pd.concat([control_sample, traitement_sample], axis=0)
+        ab_test.reset_index(drop=True, inplace=True)
+        ab_test.head()
+
 
 
