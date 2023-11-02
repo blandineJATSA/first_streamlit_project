@@ -294,8 +294,7 @@ elif selected_option == "Reste de l'analyse + Regression logistique":
     'A14': 'Pas de compte',
     'A11': 'CC < 0 euros',
     'A12': 'CC [0-200 euros[',
-    'A13': 'CC > 200 euros'
-}
+    'A13': 'CC > 200 euros'}
 
     credit2['Comptes'] = credit2['Comptes'].replace(replacements)
     
@@ -331,14 +330,16 @@ elif selected_option == "Reste de l'analyse + Regression logistique":
     st.title("La regression logistique")
     
     st.write(""" 
-Avant de passer aux arbres de decision, aux méthodes d'aggregation et aux autres méthodes de modélisation, nous commencons par chercher un modèle logistique qui nous permettra d'obtenir une première grille de score et d'avoir un point de référence en termes de va discriminantes et d'aire sous la courbe ROC, pour les autres modèles de score.""")
+        Avant de passer aux arbres de decision, aux méthodes d'aggregation et aux autres méthodes de modélisation, nous 
+     commencons par chercher un modèle logistique qui nous permettra d'obtenir une première grille de score et d'avoir 
+     un point de référence en termes de va discriminantes et d'aire sous la courbe ROC, pour les autres modèles de score
+     .""")
     
     # Renommer les colonnes age, montant_credit et Duree_credit
     credit2.rename(columns={
     'qAge' : 'Age',
     'qDuree_credit' : 'Duree_credit' ,
-    'qMontant_credit': 'Montant_credit'
-}, inplace=True)
+    'qMontant_credit': 'Montant_credit'}, inplace=True)
     
     credit2['Age']  = credit2['Age'].astype(object)
     credit2['Duree_credit'] = credit2['Duree_credit'].astype(object)
@@ -425,24 +426,7 @@ else:
     # Autres sections si nécessaire
     pass
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
 # Obtenir la date actuelle
 aujourd_hui = datetime.date.today()
