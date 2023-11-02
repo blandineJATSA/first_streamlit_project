@@ -115,7 +115,7 @@ elif selected_option == "Collecte et préparation des données":
 
         ab_test = pd.concat([control_sample, traitement_sample], axis=0)
         ab_test.reset_index(drop=True, inplace=True)
-        ab_test.head()
+        st.write(ab_test.head())
 
 
 
