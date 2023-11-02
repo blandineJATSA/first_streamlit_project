@@ -28,11 +28,11 @@ required_n = sms.NormalIndPower().solve_power(
     )               # Calculating sample size needed
 
 required_n = ceil(required_n)    # Rounding up to next whole number
-
+AB_test = pd.read_csv('ab_data.csv')
 
 # Menu de navigation
 st.sidebar.title("Menu de Navigation")
-selected_option = st.sidebar.radio("creer un A/B test", ["Concevoir notre A/B testing", "Vue d'ensemble des données" , "Analyses des variables continues ( analyse bivariée)", "Reste de l'analyse + Regression logistique"])
+selected_option = st.sidebar.radio("creer un A/B test", ["Concevoir notre A/B testing", "Collecte et préparation des données" , "Analyses des variables continues ( analyse bivariée)", "Reste de l'analyse + Regression logistique"])
 
 if selected_option == "Concevoir notre A/B testing":
     st.write("Ce projet explique comment concevoir, exécuter et interpréter un A/B test en vue d'améliorer les taux "
@@ -84,3 +84,12 @@ if selected_option == "Concevoir notre A/B testing":
                 "calculer la taille de l’effet attendue.")
 
     st.write(" Nous aurions besoin d'au moins ", required_n, "observations pour chaque groupe:")
+
+elif selected_option == "Collecte et préparation des données":
+    data_head = st.checkbox("afficher les  5 premières lignes de la base de données ")
+    if data_head:
+        st.dataframe(AB_test.head(5))
+        # Affichez la dimension de la base de données
+        num_rows, num_columns = AB_test.shape
+        st.write(f"La base de données a {num_rows} lignes et {num_columns} colonnes.")
+
