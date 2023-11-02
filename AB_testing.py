@@ -155,7 +155,7 @@ elif selected_option == "Collecte et préparation des données":
         st.write("Donc la treatment valeur du groupe est plus élevée. Cette différence est-elle statistiquement"
                  " significative ?")
 
-        st.write("- Tester l'hypothèse")
+        st.write("- **Tester l'hypothèse**")
         st.write("La dernière étape de notre analyse consiste à tester notre hypothèse. Puisque nous disposons d'un "
                  "très grand échantillon, nous pouvons utiliser l' approximation normale pour calculer notre valeur "
                  "p (c'est-à-dire le test z).")
@@ -176,6 +176,21 @@ elif selected_option == "Collecte et préparation des données":
         st.write(f'p-value: {pval:.3f}')
         st.write(f'ci 95% for control group: [{lower_con:.3f}, {upper_con:.3f}]')
         st.write(f'ci 95% for treatment group: [{lower_treat:.3f}, {upper_treat:.3f}]')
+
+        st.write("- **conclusions**")
+        st.write("Puisque notre valeur p = 0,732 est bien au-dessus de notre seuil α = 0,05, nous ne pouvons pas"
+                 " rejeter l'hypothèse nulle Hₒ, ce qui signifie que notre nouvelle conception n'a pas fonctionné"
+                 " de manière significativement différente (et encore moins meilleure) que notre ancienne")
+        st.write("De plus, si nous regardons l'intervalle de confiance du treatmentgroupe ([0,116, 0,135]"
+                 " ou 11,6-13,5 %), nous remarquons que :")
+        st.write("1- l inclut notre valeur de base de 13 % de taux de conversion")
+        st.write("2- Il n'inclut pas notre valeur cible de 15 % (l'augmentation de 2 % que nous visions)")
+
+        st.write("Cela signifie qu'il est plus probable que le véritable taux de conversion du nouveau design soit "
+                 "similaire à notre référence, plutôt qu'à l'objectif de 15 % que nous avions espéré. "
+                 "C'est une preuve supplémentaire que notre nouveau design n'est pas susceptible d'être "
+                 "une amélioration par rapport à notre ancien design, et que malheureusement nous sommes "
+                 "de retour à la planche à dessin !")
 
 
 
