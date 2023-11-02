@@ -13,16 +13,18 @@ st.subheader ( 'Par Blandine JATSA NGUETSE')
 
 # Menu de navigation
 st.sidebar.title("Menu de Navigation")
-selected_option = st.sidebar.radio("Plan de travail", ["Presentation du jeu de données", "Vue d'ensemble des données" , "Analyses des variables continues ( analyse bivariée)", "Reste de l'analyse + Regression logistique"])
+selected_option = st.sidebar.radio("creer un A/B test", ["Concevoir notre A/B testing", "Vue d'ensemble des données" , "Analyses des variables continues ( analyse bivariée)", "Reste de l'analyse + Regression logistique"])
 
-if selected_option == "Presentation du jeu de données":
-    # Afficher le contenu de l'analyse de données
-    #Bouton pour afficher le paragraphe
-    afficher_paragraphe = st.checkbox("Objectifs")
+if selected_option == "Concevoir notre A/B testing":
+    st.write("Ce projet explique comment concevoir, exécuter et interpréter un A/B test en vue d'améliorer les taux "
+             "de conversion d'une page de site Web. Cette méthode est applicable à tout type d'activités marketing.")
 
-    # Vérifier si le bouton a été cliqué
-    if afficher_paragraphe:
-        # Titre du paragraphe
-        #st.expander("Comprehension de la problématique")
-        # Contenu du paragraphe
-        st.write(" Lorsqu'une banque prete de l'argent à un client, elle prend le risque que cet emprunteur ne rembourse pas cet argent dans le délai convenu. Ce risque est appelé Risque de Crédit. Il est nécessaire pour les institutions  financieres de se protéger contre ce risque, en anticipant la dessus et cela en utilisant des outils de modélisation qui prennent en compte plusieurs paramamètres  notamment,  l'historique de l'emprunteur et son profil financier .")
+    st.write("- Mise en situation et objectifs")
+    st.write(" En tant que data scientist, nous sommes solliciter par l'équipe produit. Le concepteur a travaillé très"
+             " dur sur une nouvelle version de la page produit, dans l'espoir qu'elle entraînera un taux de conversion "
+             "plus élevé. Le taux de conversion actuel est d'environ 13 % en moyenne sur l'ensemble de l'année,"
+             " l'équipe aimerait une augmentation de 2 % , ce qui signifie que le nouveau design sera considéré comme "
+             "un succès s'il augmente le taux de conversion à 15%."
+             "Notre objectif est de tester sur un petit nombre d'utilisateurs pour voir ses performances avant de"
+             " déployer le changement."
+             " Nous suggérons donc d'exécuter un test A/B.")
