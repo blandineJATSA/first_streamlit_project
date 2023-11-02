@@ -92,4 +92,6 @@ elif selected_option == "Collecte et préparation des données":
         # Affichez la dimension de la base de données
         num_rows, num_columns = AB_test.shape
         st.write(f"La base de données a {num_rows} lignes et {num_columns} colonnes.")
+        st. write(AB_test)
+    preparation_données = st.checkbox(" Préparation des données ")
 
