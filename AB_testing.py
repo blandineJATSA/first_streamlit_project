@@ -30,7 +30,7 @@ if selected_option == "Concevoir notre A/B testing":
              " déployer le changement."
              " Nous suggérons donc d'exécuter un test A/B.")
 
-    st.write("- Objectif du test et indicateur à mesurer")
+    st.markdown("- **Objectif du test et indicateur à mesurer**")
     st.write("L'exemple d'A/B testing développé dans ce projet porte sur le design de la page produit. L'objectif"
              " dans notre cas d'étude est d'observer comment le nouveau design de la page produit influence "
              "le taux de conversion d'un visiteur à lead. Ainsi L'indicateur  mesuré est le taux de conversion. "
@@ -38,5 +38,5 @@ if selected_option == "Concevoir notre A/B testing":
              "En effet, ce test vise à mesurer l'effet du design sur le taux de conversion"
              )
 
-    st.write("- Hypothèses du test")
+    st.markdown("- **Hypothèses du test**")
     st.write(" ")
