@@ -15,9 +15,9 @@ st.subheader ( 'Par Blandine JATSA NGUETSE')
 
 # Some plot styling preferences
 #plt.style.use('seaborn-whitegrid')
-#font = {'family' : 'Helvetica', 'weight' : 'bold','size'   : 14}
+font = {'family' : 'Helvetica', 'weight' : 'bold','size'   : 14}
 
-#mpl.rc('font', **font)
+mpl.rc('font', **font)
 effect_size = sms.proportion_effectsize(0.13, 0.15)    # Calculating effect size based on our expected rates
 
 required_n = sms.NormalIndPower().solve_power(
@@ -67,7 +67,7 @@ if selected_option == "Concevoir notre A/B testing":
              "Nous fixerons également un niveau de confiance de 95 %  soit $\\alpha = 0,05$.")
 
     st.markdown("- **Choisir une taille d'échantillon**")
-    st.write(" Pour notre test nous aurons besoin de deux groupes: Un groupe de referent dont on leur montrera l'ancien "
+    st.write(" Pour notre test nous aurons besoin de deux groupes: Un groupe de referent dont on leur montrera l'ancien"
              "design et un groupe test dont on leur montrera le nouveau design. L'échantillon que nous décidons de"
              " capturer dans chaque groupe aura un effet sur la précision de nos taux de conversion estimés :"
              " plus la taille de l'échantillon est grande, plus nos estimations sont précises (c'est-à-dire plus nos "
@@ -75,7 +75,7 @@ if selected_option == "Concevoir notre A/B testing":
              " deux groupes, s'il est présent.")
     st.write("D’un autre côté, plus notre échantillon est grand, plus notre "
              "étude devient coûteuse (et peu pratique). La taille de l'échantillon dont nous avons besoin est "
-             "estimée par quelque chose appelé analyse de puissance , et elle dépend de quelques facteurs :" )
+             "estimée par l'analyse de puissance , et elle dépend de quelques facteurs :")
     st.markdown(" - **Puissance du test :** La probabilité de trouver une différence statistique entre les groupes de notre"
                 "test lorsqu'une différence est réellement présente. Ceci est généralement fixé à 0,8 par convention ")
     st.markdown("- **Valeur alpha ($\\alpha$):** La valeur critique que nous avons fixée précédemment à 0,05")
