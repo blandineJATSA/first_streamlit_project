@@ -92,6 +92,11 @@ elif selected_option == "Collecte et préparation des données":
         # Affichez la dimension de la base de données
         num_rows, num_columns = AB_test.shape
         st.write(f"La base de données a {num_rows} lignes et {num_columns} colonnes.")
-        st. write(AB_test)
+        st. write(AB_test.info())
+        st.write(pd.crosstab(AB_test['group'], AB_test['landing_page']))
+
     preparation_données = st.checkbox(" Préparation des données ")
+    if preparation_données :
+        st.write("Nous n'utiliserons en fait que les colonnes **group** et **converted** pour l'analyse.")
+
 
