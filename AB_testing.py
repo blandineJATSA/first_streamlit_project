@@ -14,12 +14,10 @@ st.subheader ( 'Par Blandine JATSA NGUETSE')
 
 
 # Some plot styling preferences
-plt.style.use('seaborn-whitegrid')
-font = {'family' : 'Helvetica',
-        'weight' : 'bold',
-        'size'   : 14}
+#plt.style.use('seaborn-whitegrid')
+#font = {'family' : 'Helvetica', 'weight' : 'bold','size'   : 14}
 
-mpl.rc('font', **font)
+#mpl.rc('font', **font)
 effect_size = sms.proportion_effectsize(0.13, 0.15)    # Calculating effect size based on our expected rates
 
 required_n = sms.NormalIndPower().solve_power(
