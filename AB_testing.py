@@ -1,9 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from sklearn.svm import SVC
+import scipy.stats as stats
+import statsmodels.stats.api as sms
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
+from math import ceil
 
 
 st.title('Projet AB testing')
@@ -49,11 +52,19 @@ if selected_option == "Concevoir notre A/B testing":
 
     st.markdown("- **Choisir une taille d'échantillon**")
     st.write(" Pour notre test nous aurons besoin de deux groupes: Un groupe de referent dont on leur montrera l'ancien "
-             "design et un groupe test dont on leur montrera le nouveau design. $<br>$ L'échantillon que nous décidons de"
+             "design et un groupe test dont on leur montrera le nouveau design. L'échantillon que nous décidons de"
              " capturer dans chaque groupe aura un effet sur la précision de nos taux de conversion estimés :"
              " plus la taille de l'échantillon est grande, plus nos estimations sont précises (c'est-à-dire plus nos "
              "intervalles de confiance sont petits), plus les chances de détecter une différence sont élevéesdans les"
-             " deux groupes, s'il est présent. <br> D’un autre côté, plus notre échantillon est grand, plus notre "
-             "étude devient coûteuse (et peu pratique). <br> La taille de l'échantillon dont nous avons besoin est "
+             " deux groupes, s'il est présent.")
+    st.write("D’un autre côté, plus notre échantillon est grand, plus notre "
+             "étude devient coûteuse (et peu pratique). La taille de l'échantillon dont nous avons besoin est "
              "estimée par quelque chose appelé analyse de puissance , et elle dépend de quelques facteurs :" )
+    st.markdown(" - Puissance du test : La probabilité de trouver une différence statistique entre les groupes de notre"
+                "test lorsqu'une différence est réellement présente. Ceci est généralement fixé à 0,8 par convention ")
+    st.markdown("- Valeur alpha ($\\alpha$) — La valeur critique que nous avons fixée précédemment à 0,05")
+    st.markdown("- Taille de l'effet – Quelle différence nous prévoyons qu'il y ait entre les taux de conversion : "
+                "Puisque notre équipe se contenterait d’une différence de 2 %, nous pouvons utiliser 13 % et 15 % pour "
+                "calculer la taille de l’effet attendue.")
+
 
