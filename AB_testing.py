@@ -47,9 +47,9 @@ if selected_option == "Concevoir notre A/B testing":
     st.write(" où $P$ et $P_0$ représentent respectivement le taux de conversion du nouveau et de l'ancien design. "
              "Nous fixerons également un niveau de confiance de 95 %  soit $\\alpha = 0,05$.")
 
-    st.markdown("- ** Choisir une taille d'échantillon**")
+    st.markdown("- **Choisir une taille d'échantillon**")
     st.write(" Pour notre test nous aurons besoin de deux groupes: Un groupe de referent dont on leur montrera l'ancien "
-             "design et un groupe test dont on leur montrera le nouveau design. <br> L'échantillon que nous décidons de"
+             "design et un groupe test dont on leur montrera le nouveau design. $<br>$ L'échantillon que nous décidons de"
              " capturer dans chaque groupe aura un effet sur la précision de nos taux de conversion estimés :"
              " plus la taille de l'échantillon est grande, plus nos estimations sont précises (c'est-à-dire plus nos "
              "intervalles de confiance sont petits), plus les chances de détecter une différence sont élevéesdans les"
