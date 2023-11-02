@@ -31,10 +31,10 @@ if selected_option == "Concevoir notre A/B testing":
              " Nous suggérons donc d'exécuter un test A/B.")
 
     st.markdown("- **Objectif du test et indicateur à mesurer**")
-    st.write("L'exemple d'A/B testing développé dans ce projet porte sur le design de la page produit. L'objectif"
+    st.write("L'exemple d'A/B testing développé dans ce projet porte sur **le design de la page produit**. L'objectif"
              " dans notre cas d'étude est d'observer comment le nouveau design de la page produit influence "
-             "le taux de conversion d'un visiteur à lead. Ainsi L'indicateur  mesuré est le taux de conversion. "
-             "la seule variable testée est le design, le texte et les couleurs restant identiques. "
+             "le taux de conversion d'un visiteur à lead. Ainsi L'indicateur  mesuré est **le taux de conversion**. "
+             "la seule variable testée est **le design**, le texte et les couleurs restant identiques. "
              "En effet, ce test vise à mesurer l'effet du design sur le taux de conversion"
              )
 
@@ -44,3 +44,6 @@ if selected_option == "Concevoir notre A/B testing":
 
     st.markdown("$$H_0 : P=P_0 $$")
     st.markdown("$$H_a : P \\neq P_0$$")
+    st.write(" où où $P$ et $P_0$ représentent respectivement le taux de conversion du nouveau et de l'ancien design. "
+             "Nous fixerons également un niveau de confiance de 95 %  soit $\Alpha = 0,05$")
+
