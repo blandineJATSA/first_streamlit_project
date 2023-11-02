@@ -115,7 +115,23 @@ elif selected_option == "Collecte et préparation des données":
 
         ab_test = pd.concat([control_sample, traitement_sample], axis=0)
         ab_test.reset_index(drop=True, inplace=True)
-        st.write(ab_test.head())
+        #st.write(ab_test.head())
+
+        st.write("  **Visualiser les résultats**")
+        st.write("La première chose que nous pouvons faire est de calculer quelques statistiques de base pour avoir"
+                 " une idée de ce à quoi ressemblent nos échantillons.")
+
+        conversion_rates = ab_test.groupby('group')['converted']
+
+        std_p = lambda x: np.std(x, ddof=0)  # Std. écart de la proportion
+        se_p = lambda x: stats.sem(x, ddof=0)  # Std. erreur de proportion (std / sqrt(n))
+
+        conversion_rates = conversion_rates.agg([np.mean, std_p, se_p])
+        conversion_rates.columns = ['conversion_rate', 'std_deviation', 'std_error']
+
+        st.write(conversion_rates.style.format ('{:.3f}'))
+
+
 
 
 
