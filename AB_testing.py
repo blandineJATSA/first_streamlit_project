@@ -43,4 +43,4 @@ if selected_option == "Concevoir notre A/B testing":
              "par rapport à l'ancien, nous choisissons un test bilatéral:")
 
     st.markdown("$$H_0 : P=P_0 $$")
-    st.markdown("$$H_a : P &ne P_0$$")
+    st.markdown("$$H_a : P \\neq P_0$$")
