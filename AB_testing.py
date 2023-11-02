@@ -148,6 +148,37 @@ elif selected_option == "Collecte et préparation des données":
         # Afficher le graphique avec Streamlit
         st.pyplot(plt)
 
+        st.write("Les taux de conversion pour nos groupes sont en effet très proches. Notez également que le taux de"
+                 " conversion du controlgroupe est inférieur à ce à quoi nous nous attendions compte tenu de ce que "
+                 "nous connaissions de notre moyenne. taux de conversion (12,3% contre 13%). Cela montre qu’il existe"
+                 " une certaine variation dans les résultats lors de l’échantillonnage d’une population.")
+        st.write("Donc la treatment valeur du groupe est plus élevée. Cette différence est-elle statistiquement"
+                 " significative ?")
+
+        st.write("- Tester l'hypothèse")
+        st.write("La dernière étape de notre analyse consiste à tester notre hypothèse. Puisque nous disposons d'un "
+                 "très grand échantillon, nous pouvons utiliser l' approximation normale pour calculer notre valeur "
+                 "p (c'est-à-dire le test z).")
+
+        from statsmodels.stats.proportion import proportions_ztest, proportion_confint
+
+        control_results = ab_test[ab_test['group'] == 'control']['converted']
+        treatment_results = ab_test[ab_test['group'] == 'treatment']['converted']
+        n_con = control_results.count()
+        n_treat = treatment_results.count()
+        successes = [control_results.sum(), treatment_results.sum()]
+        nobs = [n_con, n_treat]
+
+        z_stat, pval = proportions_ztest(successes, nobs=nobs)
+        (lower_con, lower_treat), (upper_con, upper_treat) = proportion_confint(successes, nobs=nobs, alpha=0.05)
+
+        st.write(f"z statistic: {z_stat:.2f}")
+        st.write(f'p-value: {pval:.3f}')
+        st.write(f'ci 95% for control group: [{lower_con:.3f}, {upper_con:.3f}]')
+        st.write(f'ci 95% for treatment group: [{lower_treat:.3f}, {upper_treat:.3f}]')
+
+
+
 
 
 
