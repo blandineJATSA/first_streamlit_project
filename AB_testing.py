@@ -131,6 +131,24 @@ elif selected_option == "Collecte et préparation des données":
 
         st.write(conversion_rates.style.format ('{:.3f}'))
 
+        st.write("À en juger par les statistiques ci-dessus, il semble que nos deux conceptions aient fonctionné de "
+                 "manière très similaire , notre nouvelle conception étant légèrement meilleure, env. Taux de "
+                 "conversion de 12,3 % contre 12,6 % .")
+
+        st.write("Le tracé des données rendra ces résultats plus faciles à comprendre :")
+
+        # Créer un graphique à l'aide de Seaborn
+        plt.figure(figsize=(8, 6))
+        sns.barplot(x=ab_test['group'], y=ab_test['converted'], ci=False)
+        plt.ylim(0, 0.17)
+        plt.title('Taux de conversion par groupe', pad=20)
+        plt.xlabel('Groupe', labelpad=15)
+        plt.ylabel('Converti (proportion)', labelpad=15)
+
+        # Afficher le graphique avec Streamlit
+        st.pyplot(plt)
+
+
 
 
 
