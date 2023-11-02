@@ -45,5 +45,15 @@ if selected_option == "Concevoir notre A/B testing":
     st.markdown("$$H_0 : P=P_0 $$")
     st.markdown("$$H_a : P \\neq P_0$$")
     st.write(" où $P$ et $P_0$ représentent respectivement le taux de conversion du nouveau et de l'ancien design. "
-             "Nous fixerons également un niveau de confiance de 95 %  soit $\alpha = 0,05$")
+             "Nous fixerons également un niveau de confiance de 95 %  soit $\\alpha = 0,05$.")
+
+    st.markdown("- ** Choisir une taille d'échantillon**")
+    st.write(" Pour notre test nous aurons besoin de deux groupes: Un groupe de referent dont on leur montrera l'ancien "
+             "design et un groupe test dont on leur montrera le nouveau design. <br> L'échantillon que nous décidons de"
+             " capturer dans chaque groupe aura un effet sur la précision de nos taux de conversion estimés :"
+             " plus la taille de l'échantillon est grande, plus nos estimations sont précises (c'est-à-dire plus nos "
+             "intervalles de confiance sont petits), plus les chances de détecter une différence sont élevéesdans les"
+             " deux groupes, s'il est présent. <br> D’un autre côté, plus notre échantillon est grand, plus notre "
+             "étude devient coûteuse (et peu pratique). <br> La taille de l'échantillon dont nous avons besoin est "
+             "estimée par quelque chose appelé analyse de puissance , et elle dépend de quelques facteurs :" )
 
