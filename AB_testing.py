@@ -92,7 +92,7 @@ elif selected_option == "Collecte et préparation des données":
         # Affichez la dimension de la base de données
         num_rows, num_columns = AB_test.shape
         st.write(f"La base de données a {num_rows} lignes et {num_columns} colonnes.")
-        st. write(AB_test.infos())
+        #st. write(AB_test.infos())
         st.write("Nous n'utiliserons en fait que les colonnes **group** et **converted** pour l'analyse.")
         st.write("Tableau croisé entre 'group' et 'landing_page' :")
         st.write(pd.crosstab(AB_test['group'], AB_test['landing_page']))
