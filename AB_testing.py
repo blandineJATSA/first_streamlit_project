@@ -29,10 +29,44 @@ required_n = sms.NormalIndPower().solve_power(
 
 required_n = ceil(required_n)    # Rounding up to next whole number
 AB_test = pd.read_csv('ab_data.csv')
+session_counts = AB_test['user_id'].value_counts(ascending=False)
+multi_users = session_counts[session_counts > 1].count()
+users_to_drop = session_counts[session_counts > 1].index
+df = AB_test[~AB_test['user_id'].isin(users_to_drop)]
+control_sample = df[df['group'] == 'control'].sample(n=required_n, random_state=22)
+traitement_sample = df[df['group'] == 'treatment'].sample(n=required_n, random_state=22)
+
+ab_test = pd.concat([control_sample, traitement_sample], axis=0)
+ab_test.reset_index(drop=True, inplace=True)
+conversion_rates = ab_test.groupby('group')['converted']
+
+std_p = lambda x: np.std(x, ddof=0)  # Std. écart de la proportion
+se_p = lambda x: stats.sem(x, ddof=0)  # Std. erreur de proportion (std / sqrt(n))
+
+conversion_rates = conversion_rates.agg([np.mean, std_p, se_p])
+conversion_rates.columns = ['conversion_rate', 'std_deviation', 'std_error']
+
+from statsmodels.stats.proportion import proportions_ztest, proportion_confint
+
+control_results = ab_test[ab_test['group'] == 'control']['converted']
+treatment_results = ab_test[ab_test['group'] == 'treatment']['converted']
+n_con = control_results.count()
+n_treat = treatment_results.count()
+successes = [control_results.sum(), treatment_results.sum()]
+nobs = [n_con, n_treat]
+
+z_stat, pval = proportions_ztest(successes, nobs=nobs)
+(lower_con, lower_treat), (upper_con, upper_treat) = proportion_confint(successes, nobs=nobs, alpha=0.05)
+
+
+
+
 
 # Menu de navigation
 st.sidebar.title("Menu de Navigation")
-selected_option = st.sidebar.radio("creer un A/B test", ["Concevoir notre A/B testing", "Collecte et préparation des données" , "Analyses des variables continues ( analyse bivariée)", "Reste de l'analyse + Regression logistique"])
+selected_option = st.sidebar.radio("creer un A/B test", ["Concevoir notre A/B testing",
+                                                         "Collecte et préparation des données" ,
+                                                         "Test d'hypothèse et Conclusions"])
 
 if selected_option == "Concevoir notre A/B testing":
     st.write("Ce projet explique comment concevoir, exécuter et interpréter un A/B test en vue d'améliorer les taux "
@@ -99,35 +133,20 @@ elif selected_option == "Collecte et préparation des données":
 
     preparation_données = st.checkbox(" Préparation des données ")
     if preparation_données:
-        session_counts = AB_test['user_id'].value_counts(ascending=False)
-        multi_users = session_counts[session_counts > 1].count()
-
         st.write(f"Il y a {multi_users} utilisateurs qui apparaissent plusieurs fois dans l'ensemble de données")
-        users_to_drop = session_counts[session_counts > 1].index
 
-        df = AB_test[~AB_test['user_id'].isin(users_to_drop)]
         st.write("L'ensemble de données mis à jour contient désormais",  df.shape[0], "entrées")
 
         st.write("  **Échantillonnage**")
         st.write("Nous effectuons un échantillonnage aléatoire simple ")
-        control_sample = df[df['group'] == 'control'].sample(n=required_n, random_state=22)
-        traitement_sample = df[df['group'] == 'treatment'].sample(n=required_n, random_state=22)
 
-        ab_test = pd.concat([control_sample, traitement_sample], axis=0)
-        ab_test.reset_index(drop=True, inplace=True)
         #st.write(ab_test.head())
 
         st.write("  **Visualiser les résultats**")
         st.write("La première chose que nous pouvons faire est de calculer quelques statistiques de base pour avoir"
                  " une idée de ce à quoi ressemblent nos échantillons.")
 
-        conversion_rates = ab_test.groupby('group')['converted']
 
-        std_p = lambda x: np.std(x, ddof=0)  # Std. écart de la proportion
-        se_p = lambda x: stats.sem(x, ddof=0)  # Std. erreur de proportion (std / sqrt(n))
-
-        conversion_rates = conversion_rates.agg([np.mean, std_p, se_p])
-        conversion_rates.columns = ['conversion_rate', 'std_deviation', 'std_error']
 
         st.write(conversion_rates.style.format ('{:.3f}'))
 
@@ -155,42 +174,35 @@ elif selected_option == "Collecte et préparation des données":
         st.write("Donc la treatment valeur du groupe est plus élevée. Cette différence est-elle statistiquement"
                  " significative ?")
 
-        st.write("- **Tester l'hypothèse**")
-        st.write("La dernière étape de notre analyse consiste à tester notre hypothèse. Puisque nous disposons d'un "
-                 "très grand échantillon, nous pouvons utiliser l' approximation normale pour calculer notre valeur "
-                 "p (c'est-à-dire le test z).")
 
-        from statsmodels.stats.proportion import proportions_ztest, proportion_confint
 
-        control_results = ab_test[ab_test['group'] == 'control']['converted']
-        treatment_results = ab_test[ab_test['group'] == 'treatment']['converted']
-        n_con = control_results.count()
-        n_treat = treatment_results.count()
-        successes = [control_results.sum(), treatment_results.sum()]
-        nobs = [n_con, n_treat]
+if selected_option == "Test d'hypothèse et Conclusions":
+    st.write("- **Tester l'hypothèse**")
+    st.write("La dernière étape de notre analyse consiste à tester notre hypothèse. Puisque nous disposons d'un "
+             "très grand échantillon, nous pouvons utiliser l' approximation normale pour calculer notre valeur "
+             "p (c'est-à-dire le test z).")
 
-        z_stat, pval = proportions_ztest(successes, nobs=nobs)
-        (lower_con, lower_treat), (upper_con, upper_treat) = proportion_confint(successes, nobs=nobs, alpha=0.05)
+    st.write(f"z statistic: {z_stat:.2f}")
+    st.write(f'p-value: {pval:.3f}')
+    st.write(f'ci 95% for control group: [{lower_con:.3f}, {upper_con:.3f}]')
+    st.write(f'ci 95% for treatment group: [{lower_treat:.3f}, {upper_treat:.3f}]')
 
-        st.write(f"z statistic: {z_stat:.2f}")
-        st.write(f'p-value: {pval:.3f}')
-        st.write(f'ci 95% for control group: [{lower_con:.3f}, {upper_con:.3f}]')
-        st.write(f'ci 95% for treatment group: [{lower_treat:.3f}, {upper_treat:.3f}]')
+    st.write("- **conclusions**")
+    st.write("Puisque notre valeur p = 0,732 est bien au-dessus de notre seuil α = 0,05, nous ne pouvons pas"
+             " rejeter l'hypothèse nulle Hₒ, ce qui signifie que notre nouvelle conception n'a pas fonctionné"
+             " de manière significativement différente (et encore moins meilleure) que notre ancienne")
+    st.write("De plus, si nous regardons l'intervalle de confiance du treatmentgroupe ([0,116, 0,135]"
+             " ou 11,6-13,5 %), nous remarquons que :")
+    st.write("1- l inclut notre valeur de base de 13 % de taux de conversion")
+    st.write("2- Il n'inclut pas notre valeur cible de 15 % (l'augmentation de 2 % que nous visions)")
 
-        st.write("- **conclusions**")
-        st.write("Puisque notre valeur p = 0,732 est bien au-dessus de notre seuil α = 0,05, nous ne pouvons pas"
-                 " rejeter l'hypothèse nulle Hₒ, ce qui signifie que notre nouvelle conception n'a pas fonctionné"
-                 " de manière significativement différente (et encore moins meilleure) que notre ancienne")
-        st.write("De plus, si nous regardons l'intervalle de confiance du treatmentgroupe ([0,116, 0,135]"
-                 " ou 11,6-13,5 %), nous remarquons que :")
-        st.write("1- l inclut notre valeur de base de 13 % de taux de conversion")
-        st.write("2- Il n'inclut pas notre valeur cible de 15 % (l'augmentation de 2 % que nous visions)")
+    st.write("Cela signifie qu'il est plus probable que le véritable taux de conversion du nouveau design soit "
+             "similaire à notre référence, plutôt qu'à l'objectif de 15 % que nous avions espéré. "
+             "C'est une preuve supplémentaire que notre nouveau design n'est pas susceptible d'être "
+             "une amélioration par rapport à notre ancien design, et que malheureusement nous sommes "
+             "de retour à la planche à dessin !")
 
-        st.write("Cela signifie qu'il est plus probable que le véritable taux de conversion du nouveau design soit "
-                 "similaire à notre référence, plutôt qu'à l'objectif de 15 % que nous avions espéré. "
-                 "C'est une preuve supplémentaire que notre nouveau design n'est pas susceptible d'être "
-                 "une amélioration par rapport à notre ancien design, et que malheureusement nous sommes "
-                 "de retour à la planche à dessin !")
+
 
 
 
