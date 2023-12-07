@@ -110,7 +110,8 @@ if selected_option == "Concevoir notre A/B testing":
     st.write("D’un autre côté, plus notre échantillon est grand, plus notre "
              "étude devient coûteuse (et peu pratique). La taille de l'échantillon dont nous avons besoin est "
              "estimée par l'analyse de puissance , et elle dépend de quelques facteurs :")
-    st.markdown(" - **Puissance du test :** La probabilité de trouver une différence statistique entre les groupes de notre"
+    st.markdown(" - **Puissance du test :** La probabilité de trouver une différence statistique entre les groupes "
+                "de notre"
                 "test lorsqu'une différence est réellement présente. Ceci est généralement fixé à 0,8 par convention ")
     st.markdown("- **Valeur alpha ($\\alpha$):** La valeur critique que nous avons fixée précédemment à 0,05")
     st.markdown("- **Taille de l'effet:** Quelle différence nous prévoyons qu'il y ait entre les taux de conversion : "
